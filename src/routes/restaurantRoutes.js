@@ -18,17 +18,21 @@ const restaurantValidation = [
     body('phone').optional().isMobilePhone().withMessage('Invalid phone number')
 ];
 
+// ========== QUAN TRỌNG: Đặt route cụ thể TRƯỚC route động ==========
+
 // Public routes
 router.get('/', getAllRestaurants);
-router.get('/:id', getRestaurantById);
 
-// Vendor only routes
+// Vendor only routes - ĐẶT TRƯỚC route /:id
 router.use(authenticateToken);
 router.use(authorizeRoles('vendor'));
 
 router.post('/', restaurantValidation, createRestaurant);
-router.get('/my-restaurant', getMyRestaurant);
+router.get('/my-restaurant', getMyRestaurant);  // Phải ở TRƯỚC /:id
 router.put('/', restaurantValidation, updateRestaurant);
 router.patch('/toggle-status', toggleRestaurantStatus);
+
+// Route động (phải ở SAU cùng)
+router.get('/:id', getRestaurantById);
 
 module.exports = router;

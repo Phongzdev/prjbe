@@ -29,7 +29,7 @@ const createOrder = async (req, res) => {
         if (!delivery_address) {
             return res.status(400).json({ message: 'Delivery address is required' });
         }
-        if (!payment_method || !['cash', 'stripe'].includes(payment_method)) {
+        if (!payment_method || !['cash', 'stripe', 'momo'].includes(payment_method)) {
             return res.status(400).json({ message: 'Valid payment method is required' });
         }
 

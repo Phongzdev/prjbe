@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { body } = require('express-validator');
-const { register, login, getMe } = require('../controllers/authController');
+const { register, login, getMe, forgotPassword, resetPassword } = require('../controllers/authController');
 const { authenticateToken } = require('../middleware/auth');
 
 // Validation rules
@@ -21,5 +21,10 @@ const loginValidation = [
 router.post('/register', registerValidation, register);
 router.post('/login', loginValidation, login);
 router.get('/me', authenticateToken, getMe);
+router.post('/forgot-password', body('email').isEmail().withMessage('Please provide a valid email'), forgotPassword);
+router.post('/reset-password/:token', [
+    body('id').notEmpty().withMessage('User ID is required'),
+    body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters')
+], resetPassword);
 
 module.exports = router;
