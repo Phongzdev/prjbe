@@ -41,7 +41,7 @@ const Order = sequelize.define('Order', {
         allowNull: false
     },
     payment_status: {
-        type: DataTypes.ENUM('pending', 'paid', 'failed'),
+        type: DataTypes.ENUM('pending', 'paid', 'failed', 'refunded'),
         defaultValue: 'pending'
     },
     stripe_payment_intent_id: {
