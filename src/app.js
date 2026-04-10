@@ -47,7 +47,11 @@ app.use('/api/reviews', reviewRoutes);
 app.use('/api/vouchers', voucherRoutes);
 // Health check
 app.get('/health', (req, res) => {
-    res.json({ status: 'OK', message: 'Server is running' });
+    res.json({
+        status: 'OK',
+        uptime: process.uptime(),
+        timestamp: Date.now()
+    });
 });
 
 // 404 handler
